@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Venda de Móveis Online',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
+        useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Venda Móveis Online'),
     );
@@ -34,34 +35,57 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       // Header
       appBar: AppBar(
-        leading: const Icon(Icons.abc), //Colocar Logo do Site aqui
-        actions: <Widget>[ // Icones Interativos do Menu
+        leading: const Icon(Icons.abc), // ícone da empresa
+        actions: <Widget>[
           IconButton(icon: const Icon(Icons.home), onPressed: () {}),
           IconButton(icon: const Icon(Icons.search), onPressed: () {}),
           IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.menu_open), onPressed: () {}),
+          Builder( // esse builder é necessário para colocar o Drawer a direita
+            builder:
+                (context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                ),
+          ),
         ],
+      ),
+      // Drawer (menu lateral)
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(child: Text('Menu')),
+            // adicionar itens do menu aqui
+            ListTile(
+              leading: Icon(Icons.account_box),
+              title: Text('Minha Conta')
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Configurações'),
+            ),
+            ListTile(
+              leading: Icon(Icons.help),
+              title: Text('Preciso de Ajuda'),
+            ),
+          ],
+        ),
       ),
       // Body
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child: Column( // essa estrutura pode ser alterada conforme o projeto for progredindo
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: [
-                // Colocar os elementos do body verticalmente aqui
-                Expanded(
-                  child: SearchBar(
-                    trailing: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: const Icon(Icons.search, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            SizedBox(
+              width: double.infinity,
+              child: SearchBar(
+                hintText: 'Buscar produto...',
+                leading: const Icon(Icons.search),
+                backgroundColor: WidgetStateProperty.all(Colors.white),
+              ),
             ),
           ],
         ),
