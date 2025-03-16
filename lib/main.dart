@@ -36,19 +36,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Header
+      backgroundColor: Color(0xFFF9E9DA),
       appBar: AppBar(
+        backgroundColor: Color(0xFFF9E9DA),
         leading: SvgPicture.asset(
           logo,
           semanticsLabel: 'Logo',
         ), // ícone da empresa
         actions: <Widget>[
-          IconButton(icon: const Icon(Icons.home), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.home, color: Color(0xFFAF651F)), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.search, color: Color(0xFFAF651F)), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.shopping_cart, color: Color(0xFFAF651F)), onPressed: () {}),
           Builder( // esse builder é necessário para colocar o Drawer a direita
             builder:
                 (context) => IconButton(
-                  icon: const Icon(Icons.menu),
+                  icon: const Icon(Icons.menu, color: Color(0xFFAF651F)),
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer();
                   },
@@ -86,9 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             SizedBox(
               width: double.infinity,
+              height: 50,
               child: SearchBar(
                 hintText: 'Buscar produto...',
-                leading: const Icon(Icons.search),
+                leading: SvgPicture.asset(
+                  logo,
+                  semanticsLabel: 'Logo',
+                ),
                 backgroundColor: WidgetStateProperty.all(Colors.white),
               ),
             ),
