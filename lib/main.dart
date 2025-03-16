@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+const String logo = 'assets/logo.svg';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       // Header
       appBar: AppBar(
-        leading: Image.asset('lib/assets/LogoMobileAR'), // ícone da empresa
+        leading: SvgPicture.asset(
+          logo,
+          semanticsLabel: 'Logo',
+        ), // ícone da empresa
         actions: <Widget>[
           IconButton(icon: const Icon(Icons.home), onPressed: () {}),
           IconButton(icon: const Icon(Icons.search), onPressed: () {}),
