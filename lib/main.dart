@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       // Header
       appBar: AppBar(
-        leading: const Icon(Icons.abc), // ícone da empresa
+        leading: Image.asset('lib/assets/LogoMobileAR'), // ícone da empresa
         actions: <Widget>[
           IconButton(icon: const Icon(Icons.home), onPressed: () {}),
           IconButton(icon: const Icon(Icons.search), onPressed: () {}),
