@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 const String logo = 'assets/logo.svg';
 
 void main() {
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Venda de Móveis Online',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
@@ -39,15 +41,25 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Color(0xFFF9E9DA),
       appBar: AppBar(
         backgroundColor: Color(0xFFF9E9DA),
-        leading: SvgPicture.asset(
-          logo,
-          semanticsLabel: 'Logo',
+        leading: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: SvgPicture.asset(logo, semanticsLabel: 'Logo'),
         ), // ícone da empresa
         actions: <Widget>[
-          IconButton(icon: const Icon(Icons.home, color: Color(0xFFAF651F)), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.search, color: Color(0xFFAF651F)), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.shopping_cart, color: Color(0xFFAF651F)), onPressed: () {}),
-          Builder( // esse builder é necessário para colocar o Drawer a direita
+          IconButton(
+            icon: const Icon(Icons.home, color: Color(0xFFAF651F)),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.search, color: Color(0xFFAF651F)),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.shopping_cart, color: Color(0xFFAF651F)),
+            onPressed: () {},
+          ),
+          Builder(
+            // esse builder é necessário para colocar o Drawer a direita
             builder:
                 (context) => IconButton(
                   icon: const Icon(Icons.menu, color: Color(0xFFAF651F)),
@@ -67,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // adicionar itens do menu aqui
             ListTile(
               leading: Icon(Icons.account_box),
-              title: Text('Minha Conta')
+              title: Text('Minha Conta'),
             ),
             ListTile(
               leading: Icon(Icons.settings),
@@ -83,17 +95,25 @@ class _MyHomePageState extends State<MyHomePage> {
       // Body
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column( // essa estrutura pode ser alterada conforme o projeto for progredindo
+        child: Column(
+          // essa estrutura pode ser alterada conforme o projeto for progredindo
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SizedBox(
               width: double.infinity,
               height: 50,
               child: SearchBar(
+                padding: const WidgetStatePropertyAll<EdgeInsets>(
+                  EdgeInsets.symmetric(horizontal: 10),
+                ),
                 hintText: 'Buscar produto...',
-                leading: SvgPicture.asset(
-                  logo,
-                  semanticsLabel: 'Logo',
+                leading: Opacity(
+                  opacity: 0.7,
+                  child: SvgPicture.asset(
+                    logo,
+                    semanticsLabel: 'Logo',
+                    width: 48,
+                  ),
                 ),
                 backgroundColor: WidgetStateProperty.all(Colors.white),
               ),
