@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Venda de Móveis Online',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFF9E9DA)),
       ),
       home: const MyHomePage(title: 'Venda Móveis Online'),
     );
