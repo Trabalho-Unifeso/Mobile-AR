@@ -117,6 +117,77 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: WidgetStateProperty.all(Colors.white),
               ),
             ),
+            // Card do Produto
+            Container(
+              margin: const EdgeInsets.only(top: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomLeft: Radius.circular(8),
+                    ),
+                    child: Image.asset(
+                      'assets/mesa-escritorio.png',
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Mesa de Escritório',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Descrição',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Text(
+                            'R\$ 1.000,00',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(width: 30),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFAF651F),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: IconButton(
+                              icon: const Icon(
+                                Icons.shopping_cart,
+                                color: Color(0xFFF9E9DA),
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
