@@ -23,32 +23,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class ScaffoldBase extends StatelessWidget {
+  final Widget body;
+  const ScaffoldBase({
+    super.key,
+    required this.body,
+  });
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Header
       backgroundColor: Color(0xFFF9E9DA),
       appBar: AppBar(
         backgroundColor: Color(0xFFF9E9DA),
         leading: Padding(
           padding: const EdgeInsets.all(6.0),
           child: SvgPicture.asset(logo, semanticsLabel: 'Logo'),
-        ), // ícone da empresa
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.home, color: Color(0xFFAF651F)),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title:'')));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Venda Móveis Online')),
+              );
             },
           ),
           IconButton(
@@ -58,28 +57,28 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: const Icon(Icons.shopping_cart, color: Color(0xFFAF651F)),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const PaginaCarrinho()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PaginaCarrinho()),
+              );
             },
           ),
           Builder(
-            // esse builder é necessário para colocar o Drawer a direita
-            builder:
-                (context) => IconButton(
-                  icon: const Icon(Icons.menu, color: Color(0xFFAF651F)),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                ),
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu, color: Color(0xFFAF651F)),
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+            ),
           ),
         ],
       ),
-      // Drawer (menu lateral)
+      body: body,
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: const <Widget>[
             DrawerHeader(child: Text('Menu')),
-            // adicionar itens do menu aqui
             ListTile(
               leading: Icon(Icons.account_box),
               title: Text('Minha Conta'),
@@ -95,11 +94,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      // Body
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldBase(
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          // essa estrutura pode ser alterada conforme o projeto for progredindo
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SizedBox(
@@ -146,32 +160,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Mesa de Escritório',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Descrição',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
                         ),
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'R\$ 1.000,00',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(width: 30),
+                          const SizedBox(width: 30),
                           Container(
                             decoration: BoxDecoration(
                               color: Color(0xFFAF651F),
@@ -179,11 +193,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: IconButton(
                               icon: const Icon(
-                                Icons.zoom_in,
+                                Icons.add_shopping_cart,
                                 color: Color(0xFFF9E9DA),
                               ),
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const PaginaProduto()));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PaginaProduto(),
+                                  ),
+                                );
                               },
                             ),
                           ),
@@ -200,136 +219,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 class PaginaProduto extends StatelessWidget {
   const PaginaProduto({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Header
-      backgroundColor: Color(0xFFF9E9DA),
-      appBar: AppBar(
-          backgroundColor: Color(0xFFF9E9DA),
-          leading: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: SvgPicture.asset(logo, semanticsLabel: 'Logo'),
-          ), // ícone da empresa
-          actions: <Widget>[
-          IconButton(
-          icon: const Icon(Icons.home, color: Color(0xFFAF651F)),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title:'')));
-          },
-           ),
-          IconButton(
-          icon: const Icon(Icons.search, color: Color(0xFFAF651F)),
-          onPressed: () {},
+    return ScaffoldBase(
+        body: Title(
+          color: Colors.black,
+          child: Text(
+              'PaginaProduto'
           ),
-          IconButton(
-          icon: const Icon(Icons.shopping_cart, color: Color(0xFFAF651F)),
-          onPressed: () {},
-          ),
-            Builder(
-              // esse builder é necessário para colocar o Drawer a direita
-              builder:
-                  (context) => IconButton(
-                icon: const Icon(Icons.menu, color: Color(0xFFAF651F)),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-              ),
-            ),
-        ],
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(child: Text('Menu')),
-            // adicionar itens do menu aqui
-            ListTile(
-              leading: Icon(Icons.account_box),
-              title: Text('Minha Conta'),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Configurações'),
-            ),
-            ListTile(
-              leading: Icon(Icons.help),
-              title: Text('Preciso de Ajuda'),
-            ),
-          ],
-        ),
-      ),
+        )
     );
-
   }
 }
-
 class PaginaCarrinho extends StatelessWidget{
   const PaginaCarrinho ({super.key});
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      // Header
-      backgroundColor: Color(0xFFF9E9DA),
-      appBar: AppBar(
-        backgroundColor: Color(0xFFF9E9DA),
-        leading: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: SvgPicture.asset(logo, semanticsLabel: 'Logo'),
-        ), // ícone da empresa
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.home, color: Color(0xFFAF651F)),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title:'')));
-            },
+  Widget build(BuildContext context) {
+    return ScaffoldBase(
+      body: Title(
+          color: Colors.black,
+          child: Text(
+              'PaginaCarrinho'
           ),
-          IconButton(
-            icon: const Icon(Icons.search, color: Color(0xFFAF651F)),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.shopping_cart, color: Color(0xFFAF651F)),
-            onPressed: () {},
-          ),
-          Builder(
-            // esse builder é necessário para colocar o Drawer a direita
-            builder:
-                (context) => IconButton(
-              icon: const Icon(Icons.menu, color: Color(0xFFAF651F)),
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            ),
-          ),
-        ],
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(child: Text('Menu')),
-            // adicionar itens do menu aqui
-            ListTile(
-              leading: Icon(Icons.account_box),
-              title: Text('Minha Conta'),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Configurações'),
-            ),
-            ListTile(
-              leading: Icon(Icons.help),
-              title: Text('Preciso de Ajuda'),
-            ),
-          ],
-        ),
-      ),
+      )
     );
   }
 }
