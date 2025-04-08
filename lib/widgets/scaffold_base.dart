@@ -24,6 +24,7 @@ class ScaffoldBase extends StatelessWidget {
       drawer: drawer,
       endDrawer: endDrawer,
       body: body,
+      resizeToAvoidBottomInset: false,
     );
   }
 }
