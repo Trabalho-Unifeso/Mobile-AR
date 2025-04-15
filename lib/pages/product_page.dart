@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ar/data/product_data.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/scaffold_base.dart';
@@ -108,15 +109,19 @@ class ProductPage extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: SizedBox(
-                                    width: 100,
+                                    width: 130,
                                     height: 20,
-                                    child: Center(
-                                      child: Row(
+                                    child: ClipRRect(
+                                      child: FilledButton(onPressed: () {
+                                        cartProducts.add(product);
+                                      }, style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Color(0xFFECB785))),
+                                          child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text('Adicionar'),
                                           Icon(Icons.add),
-                                        ],
+                                          ],
+                                        )
                                       ),
                                     ),
                                   ),

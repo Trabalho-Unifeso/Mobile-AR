@@ -1,5 +1,6 @@
 import '../models/product.dart';
 
+final List<Product> cartProducts = [];
 final List<Product> products = [
   Product(
     name: 'Mesa de Escritório',
