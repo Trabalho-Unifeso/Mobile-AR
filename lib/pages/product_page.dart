@@ -10,91 +10,155 @@ class ProductPage extends StatelessWidget {
   const ProductPage({super.key, required this.product});
 
   @override
-
   Widget build(BuildContext context) {
     return ScaffoldBase(
       appBar: const CustomAppBar(),
       endDrawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 50,vertical: 15),
-          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              //Box do Vizualizar Modelo
               SizedBox(
                 width: 400,
-                height: 75,
+                height: 65,
                 child: Container(
-                  color: Color(0xFFECB785),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFECB785),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
                   child: Center(
                     child: Text(
                       'Visualizar Modelo',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12,color: Colors.white
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
+              //Box da Imagem do Produto
               ConstrainedBox(
-                constraints: BoxConstraints(minHeight: 300, minWidth: 400),
+                constraints: BoxConstraints(minHeight: 400, minWidth: 400),
                 child: ClipRect(
                   child: Image.asset(
                     product.image,
                     alignment: Alignment.center,
                     width: 400,
-                    height: 300,
+                    height: 400,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
+              //Box das Informações do Produto
               SizedBox(
                 width: 400,
-                height: 100,
+                height: 120,
                 child: Container(
+                  decoration: BoxDecoration(
                     color: Color(0xFFFFFFFA),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                      bottomRight: Radius.circular(8),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
                     child: Column(
                       children: [
-                        Text(
-                            product.name,
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold
-                            )
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              product.name,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                        Flexible(
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            spacing: 50,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'R\$ ${product.price.toStringAsFixed(2)}',
+                                textAlign: TextAlign.left,
                                 style: const TextStyle(
+                                  color: Color(0xFF424242),
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(
-                                width: 100,
-                                height: 25,
-                                child: Row(
-                                  spacing: 5,
-                                  children: [
-                                    Text('Adicionar'),
-                                    Icon(Icons.add)
-                                  ],
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFECB785),
                                 ),
-                              )
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: SizedBox(
+                                    width: 100,
+                                    height: 20,
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text('Adicionar'),
+                                          Icon(Icons.add),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                        )
+                        ),
                       ],
-                    )
+                    ),
+                  ),
                 ),
               ),
-              Text(product.description,
-                  style: const TextStyle(fontSize: 14, color: Colors.grey)
+              //Descrição do Produto
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: SizedBox(
+                    width: 400,
+                    child: Text(
+                      'Descrição',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: SizedBox(
+                  width: 400,
+                  child: Text(
+                    textAlign: TextAlign.left,
+                    product.description,
+                    style: const TextStyle(fontSize: 14, color: Colors.black),
+                  ),
+                ),
               ),
             ],
           ),
