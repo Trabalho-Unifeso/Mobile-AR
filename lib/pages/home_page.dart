@@ -13,8 +13,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldBase(
-      appBar: const CustomAppBar(),
-      endDrawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_ar/widgets/custom_app_bar.dart';
+import 'package:mobile_ar/widgets/custom_drawer.dart';
 
 class ScaffoldBase extends StatelessWidget {
   final PreferredSizeWidget? appBar;
@@ -9,10 +11,10 @@ class ScaffoldBase extends StatelessWidget {
 
   const ScaffoldBase({
     super.key,
-    this.appBar,
+    this.appBar = const CustomAppBar(),
     required this.body,
     this.drawer,
-    this.endDrawer,
+    this.endDrawer = const CustomDrawer(),
     this.backgroundColor = const Color(0xFFF9E9DA),
   });
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_ar/data/product_data.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_drawer.dart';
 import '../widgets/scaffold_base.dart';
 import '../models/product.dart';
 
@@ -13,8 +11,6 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldBase(
-      appBar: const CustomAppBar(),
-      endDrawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
@@ -114,6 +110,9 @@ class ProductPage extends StatelessWidget {
                                     child: ClipRRect(
                                       child: FilledButton(onPressed: () {
                                         cartProducts.add(product);
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Produto Adicionado!')),
+                                        );
                                       }, style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Color(0xFFECB785))),
                                           child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
