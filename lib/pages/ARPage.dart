@@ -44,9 +44,7 @@ class _HelloWorldState extends State<HelloWorld> {
 
     arObjectManager.onInitialize();
 
-    _addSphere();
-    _addCylinder();
-    _addCube();
+    _addMesa();
   }
 
   void _addSphere() async {
@@ -55,6 +53,16 @@ class _HelloWorldState extends State<HelloWorld> {
       uri: "assets/sphere.glb", // Replace with the correct path
       position: Vector3(0, 0, -1.5),
       scale: Vector3(0.1, 0.1, 0.1),
+    );
+    await arObjectManager.addNode(node);
+  }
+
+  void _addMesa() async {
+    final node = ARNode(
+      type: NodeType.webGLB,
+      uri: "assets/models/mesa.glb", // Replace with the correct path
+      position: Vector3(0, 0, -1.5),
+      scale: Vector3(1, 1, 1),
     );
     await arObjectManager.addNode(node);
   }
