@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_ar/data/product_data.dart';
 import '../widgets/scaffold_base.dart';
 import '../models/product.dart';
+import 'ARPage.dart';
 
 class ProductPage extends StatelessWidget {
   final Product product;
@@ -20,21 +21,29 @@ class ProductPage extends StatelessWidget {
               SizedBox(
                 width: 400,
                 height: 65,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFECB785),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LocalAndWebObjectsView(product: product,)),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFECB785),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Visualizar Modelo',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.white,
+                    child: Center(
+                      child: Text(
+                        'Visualizar Modelo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
