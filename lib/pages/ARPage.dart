@@ -1,95 +1,123 @@
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
-import 'package:ar_flutter_plugin/datatypes/node_types.dart' show NodeType;
+import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math_64.dart'; // For Vector3
+import 'package:vector_math/vector_math_64.dart';
 
-class HelloWorld extends StatefulWidget {
+import '../models/product.dart';
+
+class LocalAndWebObjectsView extends StatefulWidget {
+
+  final Product product;
+
+  const LocalAndWebObjectsView({Key? key, required this.product}) : super(key: key);
+
   @override
-  _HelloWorldState createState() => _HelloWorldState();
+  State<LocalAndWebObjectsView> createState() => _LocalAndWebObjectsViewState(product: product);
 }
 
-class _HelloWorldState extends State<HelloWorld> {
+class _LocalAndWebObjectsViewState extends State<LocalAndWebObjectsView> {
   late ARSessionManager arSessionManager;
   late ARObjectManager arObjectManager;
+  final Product product;
+  _LocalAndWebObjectsViewState({required this.product});
+  //String localObjectReference;
+  ARNode? localObjectNode;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hello World'),
-        ),
-        body: ARView(
-          onARViewCreated: _onARViewCreated,
-        ),
-      ),
-    );
-  }
-
-  void _onARViewCreated(ARSessionManager sessionManager, ARObjectManager objectManager, ARAnchorManager anchorManager, ARLocationManager locationManager) {
-    arSessionManager = sessionManager;
-    arObjectManager = objectManager;
-
-    arSessionManager.onInitialize(
-      showFeaturePoints: false,
-      showPlanes: true,
-      customPlaneTexturePath: null,
-      showWorldOrigin: true,
-    );
-
-    arObjectManager.onInitialize();
-
-    _addMesa();
-  }
-
-  void _addSphere() async {
-    final node = ARNode(
-      type: NodeType.fileSystemAppFolderGLB,
-      uri: "assets/sphere.glb", // Replace with the correct path
-      position: Vector3(0, 0, -1.5),
-      scale: Vector3(0.1, 0.1, 0.1),
-    );
-    await arObjectManager.addNode(node);
-  }
-
-  void _addMesa() async {
-    final node = ARNode(
-      type: NodeType.webGLB,
-      uri: "assets/models/mesa.glb", // Replace with the correct path
-      position: Vector3(0, 0, -1.5),
-      scale: Vector3(1, 1, 1),
-    );
-    await arObjectManager.addNode(node);
-  }
-
-  void _addCylinder() async {
-    final node = ARNode(
-      type: NodeType.fileSystemAppFolderGLB,
-      uri: "assets/cylinder.glb", // Replace with the correct path
-      position: Vector3(0.0, -0.5, -2.0),
-      scale: Vector3(0.5, 0.3, 0.5),
-    );
-    await arObjectManager.addNode(node);
-  }
-
-  void _addCube() async {
-    final node = ARNode(
-      type: NodeType.fileSystemAppFolderGLB,
-      uri: "assets/cube.glb", // Replace with the correct path
-      position: Vector3(-0.5, 0.5, -3.5),
-      scale: Vector3(0.5, 0.5, 0.5),
-    );
-    await arObjectManager.addNode(node);
-  }
+  //String webObjectReference;
+  ARNode? webObjectNode;
 
   @override
   void dispose() {
     arSessionManager.dispose();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("AR"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .8,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(22),
+                child: ARView(
+                  onARViewCreated: onARViewCreated,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: onLocalObjectButtonPressed,
+                      child: const Text("carregar modelo")),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void onARViewCreated(
+      ARSessionManager arSessionManager,
+      ARObjectManager arObjectManager,
+      ARAnchorManager arAnchorManager,
+      ARLocationManager arLocationManager) {
+    this.arSessionManager = arSessionManager;
+    this.arObjectManager = arObjectManager;
+
+    this.arSessionManager.onInitialize(
+      showFeaturePoints: false,
+      showPlanes: true,
+      customPlaneTexturePath: "assets/triangle.png",
+      showWorldOrigin: true,
+      handleTaps: false,
+    );
+    this.arObjectManager.onInitialize();
+  }
+
+  Future<void> onLocalObjectButtonPressed() async {
+    if (localObjectNode != null) {
+      arObjectManager.removeNode(localObjectNode!);
+      localObjectNode = null;
+    } else {
+      var newNode = ARNode(
+          type: NodeType.localGLTF2,
+          uri: product.model,
+          scale: Vector3(0.2, 0.2, 0.2),
+          position: Vector3(0.0, 0.0, 0.0),
+          rotation: Vector4(1.0, 0.0, 0.0, 0.0));
+      bool? didAddLocalNode = await arObjectManager.addNode(newNode);
+      localObjectNode = (didAddLocalNode!) ? newNode : null;
+    }
+  }
+
+  Future<void> onWebObjectAtButtonPressed() async {
+    if (webObjectNode != null) {
+      arObjectManager.removeNode(webObjectNode!);
+      webObjectNode = null;
+    } else {
+      var newNode = ARNode(
+          type: NodeType.webGLB,
+          uri:
+          "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Fox/glTF-Binary/Fox.glb",
+          scale: Vector3(0.2, 0.2, 0.2));
+      bool? didAddWebNode = await arObjectManager.addNode(newNode);
+      webObjectNode = (didAddWebNode!) ? newNode : null;
+    }
   }
 }

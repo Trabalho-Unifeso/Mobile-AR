@@ -29,7 +29,7 @@ class ProductPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HelloWorld()),
+                      MaterialPageRoute(builder: (context) => LocalAndWebObjectsView(product: product,)),
                     );
                   },
                   child: Container(

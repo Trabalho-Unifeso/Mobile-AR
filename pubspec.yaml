@@ -39,6 +39,7 @@ dependencies:
   url_launcher: ^6.1.7
   shared_preferences: ^2.2.0
   permission_handler: 12.0.0+1
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -65,8 +66,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/mesa/
+    - assets/cadeira/
+    - assets/sofa/
+    - assets/estante/
     - assets/models/
-    - assets/models/mesa.glb
+    - assets/Chicken_01/
+    - assets/uploads_files_3912834_Table/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
