@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: const [
             CustomSearchBar(),
-            SizedBox(height: 10),
+            SizedBox(height: 13),
             ProductGrid(),
           ],
         ),
