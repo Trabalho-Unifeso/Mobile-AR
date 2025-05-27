@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
         MaterialPageRoute(builder: (context) => ProductPage(product: product)),
       ),
       child: Container(
-        margin: const EdgeInsets.only(top: 16),
+        height: 150,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -37,22 +37,29 @@ class ProductCard extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // evita overflow
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.name,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text(product.description,
-                        style: const TextStyle(fontSize: 14, color: Colors.grey)),
-                    const Spacer(),
+                    Text(
+                      product.name,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      product.description,
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     Row(
                       children: [
                         Text(
                           'R\$ ${product.price.toStringAsFixed(2)}',
                           style: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -86,3 +93,4 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+
