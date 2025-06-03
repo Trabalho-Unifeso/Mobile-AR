@@ -4,6 +4,7 @@ import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
+import 'package:ar_flutter_plugin/models/ar_hittest_result.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart';
@@ -81,26 +82,59 @@ class _LocalAndWebObjectsViewState extends State<LocalAndWebObjectsView> {
     this.arObjectManager = arObjectManager;
 
     this.arSessionManager.onInitialize(
-      showFeaturePoints: false,
+      showFeaturePoints: true, // Ajuda a depurar se o ARKit/ARCore está detectando pontos
       showPlanes: true,
+      showAnimatedGuide: true, // NOVO: guia de posicionamento, ajuda o usuário
       customPlaneTexturePath: "assets/triangle.png",
-      showWorldOrigin: true,
+      showWorldOrigin: false,
       handleTaps: false,
+
     );
+
+    this.arSessionManager.onInitialize(
+      showPlanes: true,
+      handleTaps: true,
+    );
+
     this.arObjectManager.onInitialize();
+    this.arSessionManager.onPlaneOrPointTap = onPlaneTapped;
   }
+
+  Future<void> onPlaneTapped(List<ARHitTestResult> hits) async {
+    if (hits.isEmpty) return;
+    final hit = hits.first;
+
+    var newNode = ARNode(
+      type: NodeType.localGLTF2,
+      uri: product.model,
+      scale: Vector3(0.2, 0.2, 0.2),
+      position: hit.worldTransform.getTranslation(),
+      rotation: hit.worldTransform.row0,
+    );
+
+    bool? didAdd = await arObjectManager.addNode(newNode);
+    if (didAdd == true) {
+      localObjectNode = newNode;
+    }
+  }
+
 
   Future<void> onLocalObjectButtonPressed() async {
     if (localObjectNode != null) {
       arObjectManager.removeNode(localObjectNode!);
       localObjectNode = null;
     } else {
+      // Aguarde o AR rastrear o plano
+      await Future.delayed(Duration(seconds: 2));
+
       var newNode = ARNode(
-          type: NodeType.localGLTF2,
-          uri: product.model,
-          scale: Vector3(0.2, 0.2, 0.2),
-          position: Vector3(0.0, 0.0, 0.0),
-          rotation: Vector4(1.0, 0.0, 0.0, 0.0));
+        type: NodeType.localGLTF2,
+        uri: product.model,
+        scale: Vector3(0.2, 0.2, 0.2),
+        position: Vector3(0.0, 0.0, 0.0),
+        rotation: Vector4(1.0, 0.0, 0.0, 0.0),
+      );
+
       bool? didAddLocalNode = await arObjectManager.addNode(newNode);
       localObjectNode = (didAddLocalNode!) ? newNode : null;
     }
