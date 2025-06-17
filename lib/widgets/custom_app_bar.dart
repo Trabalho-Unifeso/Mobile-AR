@@ -18,7 +18,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: const Color(0xFFF9E9DA),
       leading: Padding(
         padding: const EdgeInsets.all(6.0),
-        child: SvgPicture.asset(logo, semanticsLabel: 'Logo'),
+        child:
+          IconButton(
+            icon: SvgPicture.asset(logo, semanticsLabel: 'Logo'),
+            onPressed: () {
+              Navigator.pop(
+                context,
+              );
+            },
+          ),
       ),
       actions: [
         IconButton(

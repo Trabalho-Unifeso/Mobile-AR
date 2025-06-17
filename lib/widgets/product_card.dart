@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../pages/product_page.dart';
+import '../widgets/custom_modal.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final Product product;
 
   const ProductCard({super.key, required this.product});
 
   @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProductPage(product: product)),
+        MaterialPageRoute(builder: (context) => ProductPage(product: widget.product)),
       ),
       child: Container(
         height: 150,
@@ -28,7 +34,7 @@ class ProductCard extends StatelessWidget {
                 bottomLeft: Radius.circular(8),
               ),
               child: Image.asset(
-                product.image,
+                widget.product.image,
                 width: 150,
                 height: 150,
                 fit: BoxFit.cover,
@@ -39,17 +45,17 @@ class ProductCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // evita overflow
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.name,
+                      widget.product.name,
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      product.description,
+                      widget.product.description,
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -57,7 +63,7 @@ class ProductCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'R\$ ${product.price.toStringAsFixed(2)}',
+                          'R\$ ${widget.product.price.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -72,11 +78,12 @@ class ProductCard extends StatelessWidget {
                           child: IconButton(
                             icon: const Icon(Icons.add_shopping_cart, color: Color(0xFFF9E9DA)),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductPage(product: product),
-                                ),
+                              CustomModal.show(
+                                context: context,
+                                product: widget.product,
+                                onCartUpdated: () {
+                                  setState(() {});
+                                },
                               );
                             },
                           ),
@@ -93,4 +100,3 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-

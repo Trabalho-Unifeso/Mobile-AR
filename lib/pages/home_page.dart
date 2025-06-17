@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_drawer.dart';
+//import '../widgets/custom_app_bar.dart';
+//import '../widgets/custom_drawer.dart';
 import '../widgets/custom_search_bar.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/scaffold_base.dart';
