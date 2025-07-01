@@ -84,7 +84,7 @@ class _LocalAndWebObjectsViewState extends State<LocalAndWebObjectsView> {
     this.arSessionManager.onInitialize(
       showFeaturePoints: true, // Ajuda a depurar se o ARKit/ARCore está detectando pontos
       showPlanes: true,
-      showAnimatedGuide: true, // NOVO: guia de posicionamento, ajuda o usuário
+      showAnimatedGuide: false, // NOVO: guia de posicionamento, ajuda o usuário
       customPlaneTexturePath: "assets/triangle.png",
       showWorldOrigin: false,
       handleTaps: false,
