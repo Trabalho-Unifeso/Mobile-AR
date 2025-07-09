@@ -4,10 +4,9 @@ packages:
   ar_flutter_plugin:
     dependency: "direct main"
     description:
-      name: ar_flutter_plugin
-      sha256: "52b6b2ccec4b624ca3fb8d7cc68128f11126580b412c3da2da82c41ddfd6d6ae"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/ar_flutter_plugin-0.7.3"
+      relative: true
+    source: path
     version: "0.7.3"
   args:
     dependency: transitive
