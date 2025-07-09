@@ -1,19 +1,36 @@
-# mobile_ar
 
-A new Flutter project.
+## 📖 Sobre
 
-## Getting Started
+Mobile-AR é um aplicativo desenvolvido com Flutter que simula uma experiência de e-commerce. Ele permite aos usuários visualizar produtos em realidade aumentada (AR), oferecendo uma forma interativa e imersiva de explorar os itens antes da comprar.
 
-This project is a starting point for a Flutter application.
+## 🚀 Começando
 
-A few resources to get you started if this is your first Flutter project:
+### ☑️ Pré-requisitos
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Flutter
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Mobile-AR
-# Mobile-AR
-# Mobile-AR
+### ⚙️ Instalação
+
+Instale o Mobile-AR usando um dos seguintes métodos:
+
+**Compilar a partir do código-fonte:**
+
+1. Clone o repositório Mobile-AR:
+```sh
+❯ git clone https://github.com/Trabalho-Unifeso/Mobile-AR
+````
+
+2. Navegue até o diretório do projeto:
+
+```sh
+❯ cd Mobile-AR
+```
+
+3. Instale as dependências do projeto:
+
+**Usando o `pub`**   [<img align="center" src="https://img.shields.io/badge/Dart-0175C2.svg?style={badge_style}&logo=dart&logoColor=white" />](https://dart.dev/)
+
+```sh
+❯ pub get
+```
+
