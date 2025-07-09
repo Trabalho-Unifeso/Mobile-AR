@@ -3,39 +3,55 @@
 		"generator":"Khronos glTF Blender I/O v4.4.56",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_specular",
+		"KHR_materials_ior"
+	],
 	"scene":0,
 	"scenes":[
 		{
 			"name":"Scene",
 			"nodes":[
-				1
+				0
 			]
 		}
 	],
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Desk"
-		},
-		{
-			"children":[
-				0
-			],
-			"name":"uploads_files_3912834_Table"
+			"name":"Cube",
+			"rotation":[
+				0.7071068286895752,
+				0,
+				0,
+				0.7071068286895752
+			]
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"table.001",
+			"extensions":{
+				"KHR_materials_specular":{
+					"specularFactor":0
+				},
+				"KHR_materials_ior":{
+					"ior":1
+				}
+			},
+			"name":"Material.004",
 			"pbrMetallicRoughness":{
-				"metallicFactor":0.800000011920929
+				"baseColorTexture":{
+					"index":0
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.6900347471237183
 			}
 		}
 	],
 	"meshes":[
 		{
-			"name":"meshes[0].001",
+			"name":"Cube.001",
 			"primitives":[
 				{
 					"attributes":{
@@ -49,71 +65,90 @@
 			]
 		}
 	],
+	"textures":[
+		{
+			"sampler":0,
+			"source":0
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/jpeg",
+			"name":"table_color",
+			"uri":"table_color.jpg"
+		}
+	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":1593,
+			"count":168,
 			"max":[
-				0.699999988079071,
-				0.8330000042915344,
-				0.4550696611404419
+				0.5622699856758118,
+				1,
+				0.21579399704933167
 			],
 			"min":[
-				-0.699999988079071,
-				0,
-				-0.4449303448200226
+				-0.5622699856758118,
+				-1.0000009536743164,
+				-0.5998150110244751
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":1593,
+			"count":168,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":1593,
+			"count":168,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":5616,
+			"count":252,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":19116,
+			"byteLength":2016,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":19116,
-			"byteOffset":19116,
+			"byteLength":2016,
+			"byteOffset":2016,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":12744,
-			"byteOffset":38232,
+			"byteLength":1344,
+			"byteOffset":4032,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":11232,
-			"byteOffset":50976,
+			"byteLength":504,
+			"byteOffset":5376,
 			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9729,
+			"minFilter":9987
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":62208,
+			"byteLength":5880,
 			"uri":"mesa.bin"
 		}
 	]
